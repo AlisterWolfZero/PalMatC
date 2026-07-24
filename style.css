@@ -1,0 +1,327 @@
+:root {
+  --bg-solid: #1a1a1b;
+  --panel: rgba(0, 0, 0, 0.35);
+  --panel-soft: rgba(0, 0, 0, 0.2);
+  --panel-border: rgba(255, 255, 255, 0.15);
+  --input-border: rgba(255, 255, 255, 0.25);
+  --text: #f2f3f5;
+  --muted: #9aa1ab;
+  --accent: #0dcaf0;
+  --accent-dark: #0aa8c9;
+  --accent-contrast: #06222b;
+  --danger: #ff6b6b;
+  --raw: #f0ad4e;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background-color: var(--bg-solid);
+  background-image:
+    linear-gradient(rgba(10, 12, 16, 0.72), rgba(10, 12, 16, 0.88)),
+    url("https://cdn.paldb.cc/image/1.0/Palworld_Release.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.topbar {
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid var(--panel-border);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+}
+
+.topbar-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.brand-pal { color: var(--text); }
+.brand-mat { color: var(--accent); }
+.brand-c { color: var(--text); }
+
+.topbar-tag {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: blur(2px);
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+}
+
+.add-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+#item-input {
+  flex: 1 1 280px;
+}
+
+#qty-input {
+  width: 80px;
+}
+
+input, button {
+  font-size: 0.95rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+  background: var(--panel-soft);
+  color: var(--text);
+}
+
+input:focus, button:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+}
+
+button {
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent-dark);
+  color: var(--accent-contrast);
+  font-weight: 700;
+}
+
+button.ghost {
+  background: transparent;
+}
+
+button:hover {
+  filter: brightness(1.15);
+}
+
+.goals-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.goals-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--panel-soft);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+}
+
+.goals-list .remove-btn {
+  border: none;
+  background: transparent;
+  color: var(--danger);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.1rem 0.4rem;
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.6rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+th {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td.have-cell input {
+  width: 80px;
+  padding: 0.3rem 0.4rem;
+}
+
+td.missing.zero {
+  color: var(--muted);
+}
+
+td.missing.pending {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+th.check-col, td.check-col {
+  width: 1.6rem;
+  padding-right: 0;
+}
+
+.item-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--panel-border);
+  background: rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+  padding: 2px;
+}
+
+td.mat-name {
+  white-space: nowrap;
+}
+
+.done-check {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  padding: 0;
+}
+
+tr.done {
+  opacity: 0.4;
+}
+
+tr.done td:not(.check-col) {
+  text-decoration: line-through;
+}
+
+.summary {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+#trees {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.tree-root {
+  background: var(--panel-soft) !important;
+}
+
+.tree-root > summary {
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.4rem 0;
+  color: var(--text);
+}
+
+details {
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+details > summary::-webkit-details-marker { display: none; }
+
+details > summary .qty {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+details > summary .raw-tag {
+  color: var(--raw);
+  font-size: 0.78rem;
+  margin-left: 0.4rem;
+}
+
+.node-children {
+  margin: 0.5rem 0 0.25rem 1rem;
+  padding-left: 0.75rem;
+  border-left: 1px dashed var(--panel-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.leaf {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.25rem 0;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.leaf .qty {
+  color: var(--raw);
+  font-weight: 700;
+}
+
+.leaf.done {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
