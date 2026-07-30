@@ -13,6 +13,10 @@
   const treesEl = document.getElementById("trees");
   const datalist = document.getElementById("item-list");
   const langToggle = document.getElementById("lang-toggle");
+  const proModal = document.getElementById("pro-modal");
+  const proBodyEl = document.getElementById("pro-body");
+  const proBtn = document.getElementById("pro-btn");
+  const proToast = document.getElementById("pro-toast");
 
   let goals = [];
   const haveAmounts = {};
@@ -40,6 +44,9 @@
       crafts: (n) => `${n} ${n !== 1 ? "fabricaciones" : "fabricación"}`,
       notFound: (q) => `No se encontró ningún objeto parecido a "${q}".`,
       addAtLeastOne: "Agrega al menos un objeto a fabricar.",
+      proBody: "Para calcular materiales necesitas PalMatC Pro.",
+      proBtn: "Hacerme PRO",
+      proToast: "¡Ya eres Pro!",
     },
     en: {
       topbarTag: "Material Calculator · Palworld 1.0",
@@ -60,6 +67,9 @@
       crafts: (n) => `${n} ${n !== 1 ? "crafts" : "craft"}`,
       notFound: (q) => `No item found matching "${q}".`,
       addAtLeastOne: "Add at least one item to craft.",
+      proBody: "You need PalMatC Pro to calculate materials.",
+      proBtn: "Go PRO",
+      proToast: "You're Pro now!",
     },
   };
 
@@ -90,6 +100,8 @@
     addBtn.textContent = t("addBtn");
     calcBtn.textContent = t("calcBtn");
     clearBtn.textContent = t("clearBtn");
+    proBodyEl.textContent = t("proBody");
+    proBtn.textContent = t("proBtn");
     langToggle.querySelectorAll(".lang-btn").forEach((b) => {
       b.classList.toggle("active", b.dataset.lang === lang);
     });
@@ -260,7 +272,35 @@
     resultsPanel.hidden = true;
   });
 
-  calcBtn.addEventListener("click", calculate);
+  // ---------- "PRO" joke paywall ----------
+
+  let toastTimer = null;
+
+  function showToast(msg) {
+    clearTimeout(toastTimer);
+    proToast.textContent = msg;
+    proToast.hidden = false;
+    proToast.classList.remove("hide");
+    toastTimer = setTimeout(() => {
+      proToast.classList.add("hide");
+      setTimeout(() => { proToast.hidden = true; }, 300);
+    }, 2600);
+  }
+
+  proBtn.addEventListener("click", () => {
+    localStorage.setItem("palmatc_pro", "1");
+    proModal.hidden = true;
+    showToast(t("proToast"));
+    calculate();
+  });
+
+  calcBtn.addEventListener("click", () => {
+    if (!localStorage.getItem("palmatc_pro")) {
+      proModal.hidden = false;
+      return;
+    }
+    calculate();
+  });
 
   function buildNode(name, qtyNeeded, rawTotals) {
     const recipe = RECIPES[name];
