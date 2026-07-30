@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PalMatC — Calculadora de Materiales</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <h1><span class="brand-pal">Pal</span><span class="brand-mat">Mat</span><span class="brand-c">C</span></h1>
+    <span class="topbar-tag" id="topbar-tag">Calculadora de Materiales · Palworld 1.0</span>
+    <div class="lang-toggle" id="lang-toggle" role="group" aria-label="Idioma / Language">
+      <button type="button" class="lang-btn" data-lang="es">ES</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="panel add-panel">
+    <h2 id="add-goal-heading">Agregar objetivo de fabricación</h2>
+    <div class="add-row">
+      <input list="item-list" id="item-input" placeholder="Buscar objeto (ej. Rifle de Asalto, Pastel...)" autocomplete="off">
+      <datalist id="item-list"></datalist>
+      <input type="number" id="qty-input" min="1" value="1">
+      <button id="add-btn">Agregar</button>
+    </div>
+    <ul id="goals-list" class="goals-list"></ul>
+    <div class="actions">
+      <button id="calc-btn" class="primary">Calcular materiales</button>
+      <button id="clear-btn" class="ghost">Vaciar todo</button>
+    </div>
+  </section>
+
+  <section class="panel" id="results-panel" hidden>
+    <h2 id="results-heading">Materiales base necesarios</h2>
+    <p class="hint" id="hint-text">Edita "Tengo" si ya posees parte de los materiales — se recalcula lo que falta.</p>
+    <div class="table-scroll">
+      <table id="raw-table">
+        <thead>
+          <tr><th class="check-col"></th><th id="th-material">Material</th><th id="th-necesario">Necesario</th><th id="th-tengo">Tengo</th><th id="th-falta">Falta</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="summary" id="summary"></div>
+
+    <h2 id="tree-heading">Desglose anidado por objetivo</h2>
+    <div id="trees"></div>
+  </section>
+</main>
+
+<script src="recipes-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
